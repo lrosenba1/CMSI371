@@ -20,7 +20,7 @@
         
         // The raw meshes from which we will derive our objects.
         mesh = Shapes.sphere(),
-        mesh1 = Shapes.rect(),
+        mesh1 = Shapes.cube(),
 
         // Important state variables.
         currentRotation = 0.0,
@@ -181,34 +181,98 @@
         // to the scene (yes, a translation will also do the trick, if it
         // where implemented in this program).
         {
-            vertices: [].concat(
-                [ -2.0, 0.0, 0.0 ],
-                [ -1.5, 0.0, -0.75 ],
-                [ -2.0, 0.5, 0.0 ]
-            ),
+            vertices: Shapes.toRawTriangleArray(Shapes.rect()),
             colors: [].concat(
-                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
                 [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 0.0, 1.0 ]
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 1.0, 0.0, 0.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ]
             ),
             //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             //shininess: 10,
-            mode: gl.TRIANGLES
+            mode: gl.TRIANGLES,
+            axis: { x: 1.0, y: 1.0, z: 1.0 }
         },
 
         {
-            color: { r: 0.0, g: 1.0, b: 0 },
-            vertices: [].concat(
-                [ -1.75, 0.0, -0.5 ],
-                [ -1.25, 0.0, -0.5 ],
-                [ -1.75, 0.5, -0.5 ]
+            colors: [].concat(
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 1.0, 0.0, 1.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                [ 0.0, 1.0, 0.0 ],
+                //[ 0.0, 1.0, 0.0 ],
+                //[ 0.0, 1.0, 0.0 ],
+                //[ 0.0, 1.0, 0.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 0.0, 0.0, 1.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                [ 1.0, 1.0, 0.0 ],
+                //[ 1.0, 1.0, 0.0 ],
+                //[ 1.0, 1.0, 0.0 ],
+                //[ 1.0, 1.0, 0.0 ],
+                //[ 1.0, 0.0, 0.0 ],
+                //[ 1.0, 0.0, 0.0 ],
+                //[ 1.0, 0.0, 0.0 ]
+                //[ 1.0, 0.0, 0.0 ],
+                //[ 1.0, 0.0, 0.0 ],
+                //[ 1.0, 0.0, 0.0 ]
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ],
+                [ 0.0, 1.0, 1.0 ]
             ),
+            vertices: Shapes.toRawTriangleArray(Shapes.triBlock()),
             //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             //shininess: 10,
-            mode: gl.TRIANGLES
+            mode: gl.TRIANGLES,
+            axis: { x: 1.0, y: 1.0, z: 1.0 }
         },
 
-        {
+        /**{
             color: { r: 0.0, g: 0.0, b: 1.0 },
             vertices: [].concat(
                 [ -2.25, 0.0, 0.5 ],
@@ -218,7 +282,7 @@
             //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             //shininess: 10,
             mode: gl.TRIANGLES
-        },
+        },*/
 
         /**{
             color: { r: 0.0, g: 0.0, b: 1.0 },
@@ -235,8 +299,8 @@
             axis: { x: 1.0, y: 0.0, z: 1.0 }
         },*/
 
-        {
-            vertices: Shapes.sphere()['strip'],
+        //{
+            //vertices: Shapes.sphere()['strip'],
             
             /**colors: [].concat(
                 [ 1.0, 1.0, 1.0, ],
@@ -244,7 +308,7 @@
                 [ 0.5, 0.5, 0.75, ],
                 [ 0.5, 0.0, 0.5, ]
             ),*/
-            color: { r: 1.0, g: 0.0, b: 0.0 },
+       /**     color: { r: 1.0, g: 0.0, b: 0.0 },
             
             mode: gl.TRIANGLE_STRIP,
             axis: { x: 0.0, y: 1.0, z: 1.0 }
@@ -263,29 +327,11 @@
             /**specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             shininess: 16,
             normals: Shapes.toNormalArray(mesh),*/
-            mode: gl.TRIANGLE_FAN
-        },
+            //mode: gl.TRIANGLE_FAN
+        //},
 
         // Something that would have been clipped before.
         {
-            vertices: [].concat(
-                [ 3.0, 1.5, 0.0 ],
-                [ 2.0, -1.5, 0.0 ],
-                [ 4.0, -1.5, 0.0 ]
-            ),
-            //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            //shininess: 10,
-            colors: [].concat(
-                [ 1.0, 0.5, 0.0 ],
-                [ 0.0, 0.0, 0.5 ],
-                [ 0.5, 0.75, 0.5 ]
-            ),
-            mode: gl.TRIANGLES,
-            axis: { x: -0.5, y: 1.0, z: 0.0 }
-        }
-
-        // Show off the new shape.
-        /*{
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
             colors: [].concat(
@@ -328,7 +374,10 @@
             ),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        }*/
+        }
+
+        // Show off the new shape.
+        
     ];
 
     // Pass the vertices to WebGL.
@@ -470,24 +519,6 @@
     drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        
-        var context = document.getElementById("matrices-webgl").getContext("2d");
-        context.lineWidth = 3;
-        context.beginPath();
-        var grad = context.createRadialGradient(250,250,250,250,250,70);
-        grad.addColorStop(0,"#B0C4DE");
-        grad.addColorStop(1,"#FF4500");
-        context.fillStyle = grad;
-        context.fillRect(0,0,500,250);
-        context.closePath();
-
-        var gradi = context.createLinearGradient(0, 250, 0, 500);
-        gradi.addColorStop(0,"#191970");
-        gradi.addColorStop(1,"#EAB988");
-        context.fillStyle = gradi;
-        context.beginPath();
-        context.fillRect(0,250,500,250);
-        context.closePath();
         
         // Set the overall rotation.
         /**gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
