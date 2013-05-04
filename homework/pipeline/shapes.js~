@@ -17,72 +17,163 @@ var Shapes = {
     rect: function() {
       return {
          vertices: [
-                 [ 0.0, 0.0, 0.2 ],
-                [ 4.0, -0.5, 0.2 ],
-                [ 0.0, 3.0, 0.2 ],
-                [ 4.0, 3.0, 0.2 ]
+                [ 1.25, 0.5, 1.0 ],
+                [ 1.25, 0.5, 0.0 ],
+                [ -0.5, 0.5, 0.0 ],
+                [ -0.5, 0.5, 1.0 ],
+                [ 1.25, -0.5, 1.0 ],
+                [ 1.25, -0.5, 0.0 ],
+                [ 0.85, -0.5, 1.0 ],
+                [ 0.75, -0.5, 0.0 ],
+                [ 0.730, -0.190, 1.0 ],
+                [ 0.625, -0.375, 0.0 ],
+                [ 0.58, -0.03, 1.0 ],
+                [ 0.5, -0.25, 0.0 ],
+                [ 0.375, 0.05, 1.0 ],
+                [ 0.375, -0.125, 0.0 ],
+                [ 0.18, -0.03, 1.0 ],
+                [ 0.25, -0.25, 0.0 ],
+                [ 0.020, -0.190, 1.0 ],
+                [ 0.125, -0.375, 0.0 ],
+                [ -0.1, -0.5, 1.0 ],
+                [ 0.0, -0.5, 0.0 ],
+                [ -0.5, -0.5, 0.0 ],
+                [ -0.5, -0.5, 1.0 ]
+         ],
+         
+         indices: [
+                   [ 0, 1, 3 ],
+                   [ 2, 3, 1 ],
+                   [ 0, 4, 6 ],
+                   [ 8, 6, 0 ],
+                   [ 10, 8, 0 ],
+                   [ 12, 10, 0 ],
+                   [ 3, 12, 0 ],
+                   [ 3, 14, 12 ],
+                   [ 16, 14, 3 ],
+                   [ 18, 16, 3 ],
+                   [ 21, 18, 3 ],
+                   [ 21, 20, 3 ],
+                   //[ 3, 2, 20 ]
+                   /**[ 2, 7, 3 ],
+                   [ 6, 7, 2 ],
+                   [ 4, 7, 6 ],
+                   [ 5, 4, 6 ]*/
+                  ]
+        };
+      },
+      
+      triBlock: function() {
+      return {
+         vertices: [
+                [ 0.375, 1.51, 1.0 ],
+                [ 0.375, 1.51, 0.0 ],
+                [ -0.75, 0.51, 0.0 ],
+                [ -0.75, 0.51, 1.0 ],
+                [ 1.5, 0.51, 1.0 ],
+                [ 1.5, 0.51, 0.0 ]
          ],
          
          indices: [
                    [ 0, 1, 3 ],
                    [ 2, 3, 1 ],
                    [ 0, 3, 4 ],
-                   [ 7, 4, 3 ],
-                   [ 0, 4, 1 ],
-                   [ 5, 1, 4 ],
+                   [ 5, 4, 0 ],
+                   [ 1, 5, 0 ],
+                   [ 1, 5, 2 ],
+                   [ 3, 2, 4 ],
+                   [ 5, 4, 2]
+                   /**[ 5, 1, 4 ],
                    [ 1, 5, 6 ],
-                   [ 2, 1, 6 ],
-                   [ 2, 7, 3 ],
-                   [ 6, 7, 2 ],
-                   [ 4, 7, 6 ],
-                   [ 5, 4, 6 ]
+                   [ 2, 1, 6 ]*/
                   ]
         };
       },
           
     sphere: function() {
-            var latitudeBands = 30;
-            var longitudeBands = 30;
-            var radius = 1;
-            var vertices1 = [[]];
-            var normalData = [];
-            var textureCoordData = [];
-            for (var latNumber = 0; latNumber <= latitudeBands; latNumber++) {
-               var theta = latNumber * Math.PI / latitudeBands;
-               var sinTheta = Math.sin(theta);
-               var cosTheta = Math.cos(theta);
+        var degreesToRadians = Math.PI / 180;
+        
+        //Loop variable declarations:
+        var phi, phiR, phiR20, theta, thetaR;
+        
+        //The array holding the coordinates of all vertices except the poles
+        //in the order necessary to connect them in a "STRIP" pattern
+        var stripVertices = Array();
 
-               for (var longNumber = 0; longNumber <= longitudeBands; longNumber++) {
-                    var phi = longNumber * 2 * Math.PI / longitudeBands;
-                    var sinPhi = Math.sin(phi);
-                    var cosPhi = Math.cos(phi);
-
-                    var x = cosPhi * sinTheta;
-                    var y = cosTheta;
-                    var z = sinPhi * sinTheta;
-                    var u = 1 - (longNumber / longitudeBands);
-                    var v = 1 - (latNumber / latitudeBands);
-
-                    normalData.push(x);
-                    normalData.push(y);
-                    normalData.push(z);
-                    textureCoordData.push(u);
-                    textureCoordData.push(v);
-                    vertices1.push([radius * x, radius * y, radius * z]);
-              }
+        
+        
+        //Variables that hold the x, y, and z coordinates of a given vertex:
+        var x, y, z;
+        
+        //Draw everything but the poles:
+        for (phi = -180; phi <= 80; phi += 10) {
+            phiR = phi * degreesToRadians;
+            phiR20 = (phi + 10) * degreesToRadians;
+            
+            for (theta = -180; theta <= 180; theta += 10) {
+                thetaR = theta * degreesToRadians;
+                
+                //Calculate and push the vertex on this circle:
+                x = Math.sin(thetaR) * Math.cos(phiR);
+                y = Math.cos(thetaR) * Math.cos(phiR);
+                z = Math.sin(phiR);
+                stripVertices = stripVertices.concat(x, y, z);
+                
+                //Calculate and push the vertex on the next circle:
+                x = Math.sin(thetaR) * Math.cos(phiR20);
+                y = Math.cos(thetaR) * Math.cos(phiR20);
+                z = Math.sin(phiR20);
+                stripVertices = stripVertices.concat(x, y, z);
             }
-            var indices1 = [[]];
-            for (var latNumber = 0; latNumber < latitudeBands; latNumber++) {
-                 for (var longNumber = 0; longNumber < longitudeBands; longNumber++) {
-                      var first = (latNumber * (longitudeBands + 1)) + longNumber;
-                      var second = first + longitudeBands + 1;
-                      indices1.push([first, second, (first+1)]);
-
-                      indices1.push([second, (second+1), (first+1)]);
-                 }
-            }
-            return {vertices: vertices1, indices: indices1}; 
-
+        }
+        
+        //Constants for RAD values of sine and cosine of 80 deg:
+        var sin80 = Math.sin(80 * degreesToRadians);
+        var cos80 = Math.cos(80 * degreesToRadians);
+        
+        
+        //Draw the far pole:
+        var pole1Vertices = Array();
+        
+        //Add the far tip:
+        pole1Vertices = pole1Vertices.concat(0, 0, 1);
+        
+        //Add the far ring:
+        for (theta = -180; theta <= 180; theta += 10) {
+            thetaR = theta * degreesToRadians;
+            x = Math.sin(thetaR) * cos80;
+            y = Math.cos(thetaR) * cos80;
+            z = sin80;
+            pole1Vertices = pole1Vertices.concat(x, y, z);
+        }
+        
+        
+        //Draw the near pole:
+        var pole2Vertices = Array();
+        
+        //Add the near:
+        pole2Vertices = pole2Vertices.concat(0, 0, -1);
+        
+        //Add the near ring:
+        for (theta = -180; theta <= 180; theta += 10) {
+            thetaR = theta * degreesToRadians;
+            x = Math.sin(thetaR) * cos80;
+            y = Math.cos(thetaR) * cos80;
+            z = -sin80;
+            
+            pole2Vertices = pole2Vertices.concat(x, y, z);
+        }
+        
+        /**for (phi = -180; phi <= 80; phi += 20) {
+            phiR = phi * degreesToRadians;
+            phiR20 = (phi + 20) * degreesToRadians;
+            
+            for (theta = -180; theta <= 180; theta += 20) {
+                thetaR = theta * degreesToRadians;*/
+               
+        //Return an object containing both the strip patterns and
+        //the poles:
+        return {strip: stripVertices, fan1: pole1Vertices, fan2: pole2Vertices};
     },
 
     
@@ -138,14 +229,14 @@ var Shapes = {
     cube: function () {
         return {
             vertices: [
-                [ 0.5, 0.5, 0.5 ],
-                [ 0.5, 0.5, -0.5 ],
-                [ -0.5, 0.5, -0.5 ],
-                [ -0.5, 0.5, 0.5 ],
-                [ 0.5, -0.5, 0.5 ],
-                [ 0.5, -0.5, -0.5 ],
-                [ -0.5, -0.5, -0.5 ],
-                [ -0.5, -0.5, 0.5 ]
+                [ 1.0, -0.51, 1.0 ],
+                [ 1.0, -0.51, -0.35 ],
+                [ -0.35, -0.51, -0.35 ],
+                [ -0.35, -0.51, 1.0 ],
+                [ 1.0, -1.86, 1.0 ],
+                [ 1.0, -1.86, -0.35 ],
+                [ -0.35, -1.86, -0.35 ],
+                [ -0.35, -1.86, 1.0 ]
             ],
 
             indices: [
