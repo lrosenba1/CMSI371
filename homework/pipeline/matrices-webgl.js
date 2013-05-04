@@ -239,7 +239,24 @@
             color: { r: 0.0, g: 0.0, b: 1.0 },
             vertices: Shapes.cylinder()['top'],
             
-            mode: gl.TRIANGLE_FAN
+            mode: gl.TRIANGLE_FAN,
+            axis: { x: 0.0, y: 1.0, z: 1.0 }
+        },
+        
+        {
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            vertices: Shapes.cylinder()['bottom'],
+            
+            mode: gl.TRIANGLE_FAN,
+            axis: { x: 0.0, y: 1.0, z: 1.0 }
+        },
+        
+        {
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            vertices: Shapes.toRawTriangleArray(Shapes.cylinder()),
+            
+            mode: gl.TRIANGLE_STRIP,
+            axis: { x: 0.0, y: 1.0, z: 1.0 }
         }
 
         /**{

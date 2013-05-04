@@ -104,19 +104,37 @@ var Shapes = {
     cylinder: function() {
         var degreesToRadians = Math.PI / 180;
         var pole1Vertices = Array();
+        var pole2Vertices = Array();
         //Loop variable declarations:
         var phi, phiR, phiR20, theta, thetaR;
         var sin80 = Math.sin(80 * degreesToRadians);
         var cos80 = Math.cos(80 * degreesToRadians);
         var x, y, z;
+        pole1Vertices = pole1Vertices.concat(-1.4, -sin80, 0);
         for (theta = -180; theta <= 180; theta += 10) {
             thetaR = theta * degreesToRadians;
             x = (Math.sin(thetaR) * cos80) - 1.4;
-            y = Math.cos(thetaR) * cos80; -sin80;
-            z = -sin80;
+            y = -sin80;
+            z = Math.cos(thetaR) * cos80; 
             pole1Vertices = pole1Vertices.concat(x, y, z);
         }
-        return { top: pole1Vertices};
+        pole2Vertices = pole2Vertices.concat(-1.4, -sin80 - 0.5, 0);
+        for (theta = -180; theta <= 180; theta += 10) {
+            thetaR = theta * degreesToRadians;
+            x = (Math.sin(thetaR) * cos80) - 1.4;
+            y = -sin80 - 0.5;
+            z = Math.cos(thetaR) * cos80; 
+            pole2Vertices = pole2Vertices.concat(x, y, z);
+        }
+        var combine = pole1Vertices.concat(pole2Vertices);
+        var index = Array();
+        for (var i = 0; i < pole1Vertices.length; i++) {
+            x = i;
+            y = i + pole1Vertices.length;
+            z = i + 1;
+            index = index.concat([x, y, z]);
+        }
+        return { top: pole1Vertices, bottom: pole2Vertices, vertices: combine, indices: index};
      },
          
           
