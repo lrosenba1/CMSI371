@@ -180,46 +180,9 @@
         // We move our original triangles a bit to accommodate a new addition
         // to the scene (yes, a translation will also do the trick, if it
         // where implemented in this program).
-        {
+        /**{
             vertices: Shapes.toRawTriangleArray(Shapes.rect()),
-            colors: [].concat(
-                [ 1.0, 0.0, 1.0 ],
-                [ 1.0, 0.0, 1.0 ],
-                [ 1.0, 0.0, 1.0 ],
-                [ 1.0, 0.0, 1.0 ],
-                [ 1.0, 0.0, 1.0 ],
-                [ 1.0, 0.0, 1.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 1.0, 0.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 0.0, 0.0, 1.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 1.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 1.0, 0.0, 0.0 ],
-                [ 0.0, 1.0, 1.0 ],
-                [ 0.0, 1.0, 1.0 ],
-                [ 0.0, 1.0, 1.0 ],
-                [ 0.0, 1.0, 1.0 ],
-                [ 0.0, 1.0, 1.0 ],
-                [ 0.0, 1.0, 1.0 ]
-            ),
+            color: { r: 0.0, g: 0.0, b: 1.0 },
             //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             //shininess: 10,
             mode: gl.TRIANGLES,
@@ -270,19 +233,14 @@
             //shininess: 10,
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        },
-
-        /**{
-            color: { r: 0.0, g: 0.0, b: 1.0 },
-            vertices: [].concat(
-                [ -2.25, 0.0, 0.5 ],
-                [ -1.75, 0.0, 0.5 ],
-                [ -2.25, 0.5, 0.5 ]
-            ),
-            //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            //shininess: 10,
-            mode: gl.TRIANGLES
         },*/
+
+        {
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            vertices: Shapes.cylinder()['top'],
+            
+            mode: gl.TRIANGLE_FAN
+        }
 
         /**{
             color: { r: 0.0, g: 0.0, b: 1.0 },
@@ -331,7 +289,7 @@
         //},
 
         // Something that would have been clipped before.
-        {
+        /**{
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
             colors: [].concat(
@@ -374,7 +332,7 @@
             ),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        }
+        }*/
 
         // Show off the new shape.
         
