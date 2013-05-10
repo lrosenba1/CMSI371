@@ -180,11 +180,32 @@
         // We move our original triangles a bit to accommodate a new addition
         // to the scene (yes, a translation will also do the trick, if it
         // where implemented in this program).
-        /**{
+        {
             vertices: Shapes.toRawTriangleArray(Shapes.rect()),
             color: { r: 0.0, g: 0.0, b: 1.0 },
-            //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            //shininess: 10,
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 10,
+            normals: Shapes.toNormalArray(Shapes.rect()),
+            mode: gl.TRIANGLES,
+            axis: { x: 1.0, y: 1.0, z: 1.0 }
+        },
+        
+        {
+            vertices: Shapes.toRawTriangleArray(Shapes.rect2()),
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 10,
+            normals: Shapes.toNormalArray(Shapes.rect2()),
+            mode: gl.TRIANGLES,
+            axis: { x: 1.0, y: 1.0, z: 1.0 }
+        },
+        
+        {
+            vertices: Shapes.toRawTriangleArray(Shapes.semirect()),
+            color: { r: 0.0, g: 0.0, b: 1.0 },
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 10,
+            normals: Shapes.toNormalArray(Shapes.semirect()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
         },
@@ -229,13 +250,14 @@
                 [ 0.0, 1.0, 1.0 ]
             ),
             vertices: Shapes.toRawTriangleArray(Shapes.triBlock()),
-            //specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            //shininess: 10,
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 10,
+            normals: Shapes.toNormalArray(Shapes.triBlock()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        },*/
+        },
 
-        {
+       /**{
             color: { r: 0.0, g: 0.0, b: 1.0 },
             vertices: Shapes.cylinder()['top'],
             
@@ -257,7 +279,7 @@
             
             mode: gl.TRIANGLE_STRIP,
             axis: { x: 0.0, y: 1.0, z: 1.0 }
-        }
+        }*/
 
         /**{
             color: { r: 0.0, g: 0.0, b: 1.0 },
@@ -306,9 +328,12 @@
         //},
 
         // Something that would have been clipped before.
-        /**{
+        {
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 16,
+            normals: Shapes.toNormalArray(Shapes.cube()),
             colors: [].concat(
                 [ 1.0, 0.0, 0.0 ],
                 [ 1.0, 0.0, 0.0 ],
@@ -349,7 +374,7 @@
             ),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        }*/
+        }
 
         // Show off the new shape.
         
@@ -377,7 +402,7 @@
                 objectsToDraw[i].colors);
           
         // Same trick with specular colors.
-        /**if (!objectsToDraw[i].specularColors) {
+        if (!objectsToDraw[i].specularColors) {
             // Future refactor: helper function to convert a single value or
             // array into an array of copies of itself.
             objectsToDraw[i].specularColors = [];
@@ -395,7 +420,7 @@
 
         // One more buffer: normals.
         objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].normals);*/
+                objectsToDraw[i].normals);
     }
 
     // Initialize the shaders.
@@ -434,10 +459,10 @@
     gl.enableVertexAttribArray(vertexColor);
     //vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
     //gl.enableVertexAttribArray(vertexDiffuseColor);
-    //vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
-    //gl.enableVertexAttribArray(vertexSpecularColor);
-    //normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
-    //gl.enableVertexAttribArray(normalVector);
+    vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
+    gl.enableVertexAttribArray(vertexSpecularColor);
+    normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    gl.enableVertexAttribArray(normalVector);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
@@ -447,10 +472,10 @@
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
     
     // Note the additional variables.
-    /**lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
-    shininess = gl.getUniformLocation(shaderProgram, "shininess");*/
+    shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     /*
      * Displays an individual object, including a transformation that now varies
@@ -464,11 +489,11 @@
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
         
-        /**gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
         gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
 
         // Set the shininess.
-        gl.uniform1f(shininess, object.shininess);*/
+        gl.uniform1f(shininess, object.shininess);
         
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(object.axis ?
                 getRotationMatrix(currentRotation, object.axis.x, object.axis.y, object.axis.z) :
@@ -479,8 +504,8 @@
             ));
         
         // Set the varying normal vectors.
-        //gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
-        //gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
+        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
         
         // Set the varying vertex coordinates.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
@@ -527,9 +552,9 @@
         10
     )));
     
-    //gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
-    //gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
-    //gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
+    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
+    gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
     
     // Draw the initial scene.
     drawScene();
