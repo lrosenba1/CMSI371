@@ -123,6 +123,10 @@
                 1.0
             ];
         },
+        
+        translate = function (x, y ,z) {
+            Matrix4x4.translate(x, y, z);
+        },
 
         /*
          * This is another function that really should reside in a
@@ -574,5 +578,26 @@
             }, 30);
         }
     });
+    
+    var n = 0;
+    var x = 10;
+    var y = 10;
+    var z = 10;
+    $("#add").click( function() {
+        drawObject(objectsToDraw[n])
+        if (n < 5) {
+            n = n + 1;
+        } else {
+            n = 0;
+        }
+        drawScene();
+    });
+      
+
+
+
+
+
+
 
 }(document.getElementById("matrices-webgl")));
