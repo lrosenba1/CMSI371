@@ -596,8 +596,4 @@
 
 
 
-
-
-
-
 }(document.getElementById("matrices-webgl")));
