@@ -2,7 +2,7 @@
  * For maximum modularity, we place everything within a single function that
  * takes the canvas that it will need.
  */
-(function (canvas) {
+$(function (canvas) {
 
     // Because many of these variables are best initialized then immediately
     // used in context, we merely name them here.  Read on to see how they
@@ -385,46 +385,50 @@
     ];
 
     // Pass the vertices to WebGL.
-    for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-        objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].vertices);
+    var processObject = function (objectToDraw) {
+        objectToDraw.buffer = GLSLUtilities.initVertexBuffer(gl,
+                objectToDraw.vertices);
 
-        if (!objectsToDraw[i].colors) {
+        if (!objectToDraw.colors) {
             // If we have a single color, we expand that into an array
             // of the same color over and over.
-            objectsToDraw[i].colors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
+            objectToDraw.colors = [];
+            for (j = 0, maxj = objectToDraw.vertices.length / 3;
                     j < maxj; j += 1) {
-                objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                    objectsToDraw[i].color.r,
-                    objectsToDraw[i].color.g,
-                    objectsToDraw[i].color.b
+                objectToDraw.colors = objectToDraw.colors.concat(
+                    objectToDraw.color.r,
+                    objectToDraw.color.g,
+                    objectToDraw.color.b
                 );
             }
         }
-        objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].colors);
+        objectToDraw.colorBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectToDraw.colors);
           
         // Same trick with specular colors.
-        if (!objectsToDraw[i].specularColors) {
+        if (!objectToDraw.specularColors) {
             // Future refactor: helper function to convert a single value or
             // array into an array of copies of itself.
-            objectsToDraw[i].specularColors = [];
-            for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
+            objectToDraw.specularColors = [];
+            for (j = 0, maxj = objectToDraw.vertices.length / 3;
                     j < maxj; j += 1) {
-                objectsToDraw[i].specularColors = objectsToDraw[i].specularColors.concat(
-                    objectsToDraw[i].specularColor.r,
-                    objectsToDraw[i].specularColor.g,
-                    objectsToDraw[i].specularColor.b
+                objectToDraw.specularColors = objectToDraw.specularColors.concat(
+                    objectToDraw.specularColor.r,
+                    objectToDraw.specularColor.g,
+                    objectToDraw.specularColor.b
                 );
             }
         }
-        objectsToDraw[i].specularBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].specularColors);
+        objectToDraw.specularBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectToDraw.specularColors);
 
         // One more buffer: normals.
-        objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
-                objectsToDraw[i].normals);
+        objectToDraw.normalBuffer = GLSLUtilities.initVertexBuffer(gl,
+                objectToDraw.normals);
+    };
+
+    for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+        processObject(objectsToDraw[i]);
     }
 
     // Initialize the shaders.
@@ -580,7 +584,7 @@
     });
     
     var n = 0;
-    var x = 10;
+    var x = 0.1;
     var y = 10;
     var z = 10;
 
@@ -598,13 +602,34 @@
     //     If this explanation is not clear, let me know, and we can talk about it
     //     sometime.
     $("#add").click( function() {
-        drawObject(objectsToDraw[n])
-        if (n < 5) {
-            n = n + 1;
-        } else {
-            n = 0;
-        }
+        // Create the object to be added.
+        var newObject = {
+                vertices: Shapes.toRawTriangleArray(Shapes.semirect()),
+                color: { r: 1.0, g: 0.0, b: 0.0 },
+                specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+                shininess: 10,
+                normals: Shapes.toNormalArray(Shapes.semirect()),
+                mode: gl.TRIANGLES,
+                axis: { x: 1.0, y: 1.0, z: 1.0 }
+            };
+
+        // Translate all vertices by (x, 0, 0).
+        newObject.vertices = newObject.vertices.map(function (value, index) {
+            if (index % 3 === 0) {
+                return value + x;
+            } else {
+                return value;
+            }
+
+            // Sexy way.
+            //return (index % 3) ? value : value + x;
+        });
+
+        processObject(newObject);
+        objectsToDraw.push(newObject);
         drawScene();
+
+        x += 0.1;
     });
       
 

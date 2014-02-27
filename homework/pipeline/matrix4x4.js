@@ -35,7 +35,7 @@ Matrix4x4.prototype.multiply = function (m1, m2) {
     return product;
 };
 
-Matrix4x4.prototype.translate = function (dx, dy, dz) {
+Matrix4x4.translate = function (dx, dy, dz) {
     var move = new Matrix4x4();
 
     // JD: You can take better advantage of JavaScript by just
