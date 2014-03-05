@@ -255,7 +255,7 @@ $(function (canvas) {
             ),
             vertices: Shapes.toRawTriangleArray(Shapes.triBlock()),
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            shininess: 10,
+            shininess: 16,
             normals: Shapes.toNormalArray(Shapes.triBlock()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
@@ -335,7 +335,7 @@ $(function (canvas) {
         {
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
-            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
+            specularColor: { r: 1.0, g: 0.0, b: 0.0 },
             shininess: 16,
             normals: Shapes.toNormalArray(Shapes.cube()),
             colors: [].concat(
@@ -465,8 +465,8 @@ $(function (canvas) {
     gl.enableVertexAttribArray(vertexPosition);
     vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
-    //vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
-    //gl.enableVertexAttribArray(vertexDiffuseColor);
+    vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
+    gl.enableVertexAttribArray(vertexDiffuseColor);
     vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
     gl.enableVertexAttribArray(vertexSpecularColor);
     normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
@@ -604,11 +604,11 @@ $(function (canvas) {
     $("#add").click( function() {
         // Create the object to be added.
         var newObject = {
-                vertices: Shapes.toRawTriangleArray(Shapes.semirect()),
+                vertices: objectsToDraw[n].vertices,
                 color: { r: 1.0, g: 0.0, b: 0.0 },
                 specularColor: { r: 1.0, g: 1.0, b: 1.0 },
                 shininess: 10,
-                normals: Shapes.toNormalArray(Shapes.semirect()),
+                normals: objectsToDraw[n].normals,
                 mode: gl.TRIANGLES,
                 axis: { x: 1.0, y: 1.0, z: 1.0 }
             };
@@ -630,6 +630,7 @@ $(function (canvas) {
         drawScene();
 
         x += 0.1;
+        n += 1;
     });
       
 
