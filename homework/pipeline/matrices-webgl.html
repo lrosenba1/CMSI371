@@ -66,6 +66,8 @@
 
             varying vec4 finalVertexColor;
 
+            // JD: Your fragment shader code is completely missing the lighting computations.
+            //     No wonder nothing is happening!
             void main(void) {
                 // We vary the color based on the fragment's z coordinate,
                 // which, at this point, ranges from 0 (near) to 1 (far).

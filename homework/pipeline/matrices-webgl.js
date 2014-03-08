@@ -480,6 +480,10 @@ $(function (canvas) {
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
     
     // Note the additional variables.
+    // JD: Note that your *JavaScript* has values related to lighting, but these
+    //     depend on variables in the *shader* (as seen by the reference to
+    //     shaderProgram).  If you look at your current fragment shader, you'll
+    //     notice that these variables are not there at all.
     lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
