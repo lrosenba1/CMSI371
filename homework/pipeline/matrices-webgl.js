@@ -463,6 +463,8 @@ $(function (canvas) {
     // Hold on to the important variables within the shaders.
     vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
+    // JD 4/3: Your GLSL shader no longer has a variable called vertexColor,
+    //     so these lines should simply go away.
     vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
     gl.enableVertexAttribArray(vertexColor);
     vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
@@ -496,6 +498,15 @@ $(function (canvas) {
     drawObject = function (object) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
+        // JD 4/3: Same here; this is no longer applicable.
+        //     You have two new color arrays: vertexDiffuseColor and vertexSpecularColor.
+        //
+        //     It looks like you translated vertexSpecularColor OK from the bazaar code,
+        //     but not vertexDiffuseColor.  I suggest you follow references to that variable
+        //     in the sample code and make sure you transplant those here correctly.
+        //
+        //     And remember to not just blindly copy-paste code, but make sure you
+        //     understand what it is doing.  If you don't, ask me.
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
         //object.vertices.translate(0.5, 0.5, 0.5)
         // Set up the model-view matrix, if an axis is included.  If not, we
