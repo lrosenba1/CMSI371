@@ -184,11 +184,11 @@ $(function (canvas) {
         // We move our original triangles a bit to accommodate a new addition
         // to the scene (yes, a translation will also do the trick, if it
         // where implemented in this program).
-        /**{
+        {
             vertices: Shapes.toRawTriangleArray(Shapes.rect()),
             color: { r: 0.0, g: 0.0, b: 1.0 },
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            shininess: 10,
+            shininess: 16,
             normals: Shapes.toNormalArray(Shapes.rect()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
@@ -198,7 +198,7 @@ $(function (canvas) {
             vertices: Shapes.toRawTriangleArray(Shapes.rect2()),
             color: { r: 0.0, g: 0.0, b: 1.0 },
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            shininess: 10,
+            shininess: 16,
             normals: Shapes.toNormalArray(Shapes.rect2()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
@@ -208,11 +208,11 @@ $(function (canvas) {
             vertices: Shapes.toRawTriangleArray(Shapes.semirect()),
             color: { r: 0.0, g: 0.0, b: 1.0 },
             specularColor: { r: 1.0, g: 1.0, b: 1.0 },
-            shininess: 10,
+            shininess: 16,
             normals: Shapes.toNormalArray(Shapes.semirect()),
             mode: gl.TRIANGLES,
             axis: { x: 1.0, y: 1.0, z: 1.0 }
-        },*/
+        },
 
         {
             colors: [].concat(
@@ -335,7 +335,7 @@ $(function (canvas) {
         {
             vertices: Shapes.toRawTriangleArray(Shapes.cube()),
             // 12 triangles in all.
-            specularColor: { r: 1.0, g: 0.0, b: 0.0 },
+            specularColor: { r: 1.0, g: 1.0, b: 1.0 },
             shininess: 16,
             normals: Shapes.toNormalArray(Shapes.cube()),
             colors: [].concat(
@@ -507,7 +507,7 @@ $(function (canvas) {
         //
         //     And remember to not just blindly copy-paste code, but make sure you
         //     understand what it is doing.  If you don't, ask me.
-        gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(vertexDiffuseColor, 3, gl.FLOAT, false, 0, 0);
         //object.vertices.translate(0.5, 0.5, 0.5)
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
