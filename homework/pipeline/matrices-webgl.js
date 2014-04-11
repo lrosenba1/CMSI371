@@ -152,13 +152,41 @@ $(function (canvas) {
 
                 0.0,
                 0.0,
-                -2.0 / depth,
+                -2 / depth,
                 0.0,
 
-                -(right + left) / width,
-                -(top + bottom) / height,
+                -(right+left)/width,
+                -(top+bottom)/height,
                 -(zFar + zNear) / depth,
                 1.0
+            ];
+        };
+
+        getFrustumMatrix = function (left, right, bottom, top, zNear, zFar) {
+            var width = right - left,
+                height = top - bottom,
+                depth = zFar - zNear;
+
+            return [
+                (2.0*zNear) / width,
+                0.0,
+                0.0,
+                0.0,
+
+                0.0,
+                (2.0*zNear) / height,
+                0.0,
+                0.0,
+
+                (right + left) / width,
+                (top + bottom) / height,
+                -(zFar + zNear) / depth,
+                -1.0,
+
+                0,
+                0,
+                (-2*zFar*zNear) / depth,
+                0
             ];
         };
 
@@ -603,19 +631,6 @@ $(function (canvas) {
     var y = 10;
     var z = 10;
 
-    // JD: There is actually no object addition happening here.  You are invoking
-    //     drawObject manually, on objectsToDraw[n], then you increment n by 1 if
-    //     n is less than 5, then you manually draw the whole scene again.
-    //
-    //     See how the objectsToDraw array is not actually being touched at all?
-    //     No new object is being added to it.  What you want to do is add a new
-    //     element to this array.  Right now you have 5 objects in it.  Every time
-    //     an object is added, the number of objects should increase by one.  This
-    //     increase is *not* done by incrementing n; you do this by *adding a 3D
-    //     object definition* to the objectsToDraw array.
-    //
-    //     If this explanation is not clear, let me know, and we can talk about it
-    //     sometime.
     $("#add").click( function() {
         // Create the object to be added.
         var newObject = {
