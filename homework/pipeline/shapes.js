@@ -197,7 +197,10 @@ var Shapes = {
         return { top: pole1Vertices, bottom: pole2Vertices, vertices: combine, indices: index};
      },
          
-          
+
+    // JD: You've got the beginnings of a sphere here, but only halfway.
+    //     This is vertex generation; you have to now connect these
+    //     vertices into their appropriate polygons.
     sphere: function() {
         var degreesToRadians = Math.PI / 180;
         

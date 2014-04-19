@@ -55,6 +55,11 @@ $(function (canvas) {
         j,
         maxj,
 
+        // JD: These matrix functions really should have gone into your library.
+        //     Ultimately this is conceptually simple---move the code, change the
+        //     signatures slightly, and then you're done.  The fact that these
+        //     did not happen do not speak well of your understanding of the
+        //     material, or of dealing with larger programming structures.
         /*
          * This code does not really belong here: it should live
          * in a separate library of matrix and transformation
@@ -123,7 +128,9 @@ $(function (canvas) {
                 1.0
             ];
         },
-        
+
+        // JD: This is a one-line pass-through to your matrix library...why is this
+        //     even here?
         translate = function (x, y ,z) {
             Matrix4x4.translate(x, y, z);
         },
@@ -328,6 +335,10 @@ $(function (canvas) {
             axis: { x: 1.0, y: 0.0, z: 1.0 }
         },*/
 
+        // JD: It's unfortunate that you sphere code went "stale" as you
+        //     added lighting.  Appropriate normals actually aren't that
+        //     hard to calculate, and helper functions could have been
+        //     used for colors.  Just need a little elbow grease here.
         //{
             //vertices: Shapes.sphere()['strip'],
             

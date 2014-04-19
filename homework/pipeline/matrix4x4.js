@@ -101,38 +101,11 @@ Matrix4x4.prototype.scale = function (sx, sy, sz) {
     return scaler;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// JD: This was a good beginning, and really should not have lost steam like this.
+//     For one thing, the indicated code over in matrices-webgl.js could have
+//     easily settled in here with a little refactoring.
+//
+//     In addition, there is no demonstration of the correctness of these matrices,
+//     whether in a demonstration web page or in the form of a unit test.
+//
+//     And why were there so many blank lines at the end?
