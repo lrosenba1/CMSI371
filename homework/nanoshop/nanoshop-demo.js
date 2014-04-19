@@ -56,7 +56,7 @@
     renderingContext.putImageData(
         Nanoshop.applyFilter(
             renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-            // This is a basic "darkener."
+            // This is a basic "darkener." // JD: This comment needs an update :)
             Nanoshop.randomTint
         ),
         0,

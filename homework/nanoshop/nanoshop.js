@@ -45,6 +45,7 @@ var Nanoshop = {
     },
 
     randomTint: function (r, g, b, a) {
+        // JD: I see what you did here.  Well played.
         return [r*Nanoshop.rand, g*Nanoshop.rn, b*Nanoshop.rd, a];
     }
 
