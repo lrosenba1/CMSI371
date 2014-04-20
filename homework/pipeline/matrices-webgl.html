@@ -73,6 +73,9 @@
             void main(void) {
                 // We "merely" relay these vectors to the fragment shader.  However,
                 // we get a cool trick: they get interpolated for us!
+                // JD: I think, for your scene, a "fixed" light would have worked nicely---
+                //     to do this, transform fragmentNormal and fragmentEye, but not
+                //     fragmentLight.  Or vice versa.
                 fragmentNormal = normalVector;
                 fragmentEye = vertexPosition;
                 fragmentLight = lightPosition.xyz;

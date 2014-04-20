@@ -110,7 +110,10 @@ var Shapes = {
                 [ -0.5, -1.77, -0.2 ],
                 [ -0.5, -1.77, 0.8 ]
          ],
-         
+
+        // JD: Some of these triangles are in the wrong order (you can
+        //     tell because the lighting shows one black/one lit triangle
+        //     from certain sides).
          indices: [
                    [ 0, 1, 3 ],
                    [ 2, 3, 1 ],
@@ -156,12 +159,15 @@ var Shapes = {
                 [ 1.075, 1.0, 0.0 ]
          ],
          
+            // JD: Some of these triangles are in the wrong order (you can tell
+            //     because they are never lit, but when you flip the order they
+            //     do light up).
          indices: [
                    [ 0, 1, 3 ],
                    [ 2, 3, 1 ],
                    [ 0, 3, 4 ],
-                   [ 5, 4, 0 ],
-                   [ 1, 5, 0 ],
+                   [ 5, 4, 0 ], // JD: Sample of wrong order.
+                   [ 1, 5, 0 ], // JD: Sample of wrong order.
                    [ 1, 5, 2 ],
                    [ 3, 2, 4 ],
                    [ 5, 4, 2]
