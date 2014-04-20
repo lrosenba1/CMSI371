@@ -13,7 +13,16 @@ var Shapes = {
     /*
      * Returns the vertices for a small icosahedron.
      */
-    
+    // JD: These additional shapes fit the bill for HW 0410, with one major
+    //     issue---their locations are "baked into" the vertices.  Ideally,
+    //     the shapes are centered around the origin, with relocation left
+    //     to a matrix transformation.
+    //
+    //     For example, the rect and rect2 shapes are ultimately redundant---
+    //     the cube can be used for those, just with a translate and scale
+    //     applied.  Unfortunately, your use of matrix code has turned out
+    //     to be quite limited, and so because of that you have a missed
+    //     opportunity here.
     rect: function () {
         return {
             vertices: [
@@ -75,6 +84,7 @@ var Shapes = {
     },
     
     semirect: function() {
+        // JD: Indent sizes are off here.
       return {
          vertices: [
                 [ 1.25, -0.77, 0.8 ],
@@ -135,6 +145,7 @@ var Shapes = {
       },
       
       triBlock: function() {
+        // JD: Indentation is off here also.
       return {
          vertices: [
                 [ 0.375, 1.51, 0.5 ],
@@ -160,7 +171,14 @@ var Shapes = {
                   ]
         };
       },
-      
+
+    // JD: It seems that you let the computed nature of the cylinder and sphere
+    //     vertices confuse you on how to turn them into proper polygon meshes.
+    //     Note that there is really no difference between these shapes and the
+    //     ones preceding them---they just happen to derive their vertices by
+    //     computation rather than being explicitly listed.  The apparent
+    //     confusion caused by this change does not show a good understanding of
+    //     how 3D objects are represented in data structures.
     cylinder: function() {
         var degreesToRadians = Math.PI / 180;
         var pole1Vertices = Array();

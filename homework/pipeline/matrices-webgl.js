@@ -215,6 +215,16 @@ $(function (canvas) {
 
     // Build the objects to display.  Note how each object may come with a
     // rotation axis now.
+
+    // JD: Your final scene, once I cut through all of the commented-out code, has
+    //     a coherence and intentionally to it, but really could have held a lot
+    //     more interest: you have a cylinder and sphere implementation which,
+    //     though not totally complete (as mentioned from the previous assignment),
+    //     could still have been made to work.  You don't exploit transforms fully,
+    //     thus limiting your options in constructing and interacting with your
+    //     scene.  Even user-directed rotation, *which was already provided in the
+    //     sample code*, was traded for the much more limiting automated rotation.
+    //     A lot of unused potential here.
     objectsToDraw = [
         // We move our original triangles a bit to accommodate a new addition
         // to the scene (yes, a translation will also do the trick, if it
@@ -655,6 +665,7 @@ $(function (canvas) {
             };
 
         // Translate all vertices by (x, 0, 0).
+        // JD: Should have used a matrix for this!
         newObject.vertices = newObject.vertices.map(function (value, index) {
             if (index % 3 === 0) {
                 return value + x;
@@ -663,6 +674,8 @@ $(function (canvas) {
             }
 
             // Sexy way.
+            // JD: ^^^^^ Sexier, but not totally right---as mentioned, you want
+            //     to use a matrix transformation for this.
             //return (index % 3) ? value : value + x;
         });
 

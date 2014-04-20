@@ -109,3 +109,8 @@ Matrix4x4.prototype.scale = function (sx, sy, sz) {
 //     whether in a demonstration web page or in the form of a unit test.
 //
 //     And why were there so many blank lines at the end?
+
+// JD: Significantly missing from your matrix code (whether here or in the other
+//     file): the camera matrix!  Because you don't have it, you also don't have
+//     a compelling need to use the Vector object.  All lost opportunities to advance
+//     your knowledge and understanding of the subject.
